@@ -278,11 +278,7 @@ db.users.find({ $name: { $exists: false } });
 `$all` - Matches any value that is an array and contains all elements specified in the array.
 
 ```js
-{
-	name: {
-		$all: ["Peter", "John"];
-	}
-}
+{ name: { $all: ["Peter", "John"] } }
 ```
 
 `$size` - Matches any value that is an array and contains the specified number of elements.
