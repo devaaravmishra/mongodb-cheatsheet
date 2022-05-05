@@ -66,6 +66,10 @@ Creating documents in MongoDB is pretty simple & fast then SQL since there are o
 db.users.insertOne({ name: "John" });
 ```
 
+<div align="center">
+<img src="./screenshots/ss24.png" alt="insertOne">
+</div>
+
 `insertMany` - Similiar to insertOne, but it takes an array of objects to be inserted.
 
 ```js
@@ -75,6 +79,10 @@ db.users.insertMany([
 	{ name: "Peter" },
 ]);
 ```
+
+<div align="center">
+<img src="./screenshots/ss22.png" alt="insertMany">
+</div>
 
 #### Read (Find)
 
@@ -87,6 +95,10 @@ It is the most complex method in MongoDB. It is used to find documents in a coll
 db.users.find();
 ```
 
+<div align="center">
+<img src="./screenshots/ss25.png" alt="find">
+</div>
+
 `find(<filterObject>)` - Finds all documents in a collection that match the given filter. The filter object is a JSON object that contains the fields and values to match. By default the filter object will do equality comparisons and if we pass multiple fields in the same filter object it will only return documents that match all the fields in the filter.
 
 ```js
@@ -96,6 +108,14 @@ db.users.find({ name: "Peter" });
 // Get all users whose address field has a zip field with the value 342001
 db.users.find({ "address.zip": "342001" });
 ```
+
+<div align="center">
+<img src="./screenshots/ss8.png" alt="find with filter">
+</div>
+
+<div align="center">
+<img src="./screenshots/ss17.png" alt="find with filter">
+</div>
 
 `find(<filterObject>, <selectObject>)` - find method also takes a second object to select which fields we want returned. The object contains a key which is the field and a value of either 0 or 1 to determine if that field is returned or not. By default the \_id property is always returned unless specified.
 
@@ -107,12 +127,20 @@ db.users.find({ name: "Peter" }, { name: 1, age: 1 });
 db.users.find({}, { age: 0 });
 ```
 
+<div align="center">
+<img src="./screenshots/ss16.png" alt="find with filter & select">
+</div>
+
 `findOne` - Finds a single document in a collection.
 
 ```js
 // Get the first user with the name Peter
 db.users.findOne({ name: "Peter" });
 ```
+
+<div align="center">
+<img src="./screenshots/ss15.png" alt="findOne">
+</div>
 
 `countDocuments` - Counts the number of documents in a collection.
 
@@ -146,6 +174,10 @@ db.users.updateMany({ age: 36 }, { $incr: { age: 5 } });
 db.users.replaceOne({ address.zip:342001 }, { name: "Emiley" });
 ```
 
+<div align="center">
+<img src="./screenshots/ss28.png" alt="replaceOne">
+</div>
+
 #### Delete
 
 It is the opposite of update. It will delete all documents that match the filter passed to it.
@@ -156,6 +188,10 @@ It is the opposite of update. It will delete all documents that match the filter
 // Delete the first user with the age 36
 db.users.deleteOne({ age: 36 });
 ```
+
+<div align="center">
+<img src="./screenshots/ss26.png" alt="deleteOne">
+</div>
 
 `deleteMany` - This method will delete all objects that match the filter object passed to it.
 
@@ -181,12 +217,20 @@ Also we can pass an object as the value of a field instead of a value and that o
 db.users.find({ name: { $eq: "John" } });
 ```
 
+<div align="center">
+<img src="./screenshots/ss13.png" alt="$eq">
+</div>
+
 `$ne` - The $neq filter is the exact opposite of $eq and checks for inequality.
 
 ```js
 // Get all users with a name other than John
 db.users.find({ name: { $neq: "John" } });
 ```
+
+<div align="center">
+<img src="./screenshots/ss13.png" alt="$ne">
+</div>
 
 `gt` / `gte` - These filters check for when a value is greater than or greater than or equal to another value.
 
@@ -208,6 +252,14 @@ db.users.find({ age: { $lt: 19 } });
 db.users.find({ age: { $lte: 25 } });
 ```
 
+<div align="center">
+<img src="./screenshots/ss3.png" alt="less than or greater than">
+</div>
+
+<div align="center">
+<img src="./screenshots/ss4.png" alt="less than or greater than">
+</div>
+
 `$in` - This will return all documents that match one of the values in the array.
 
 ```js
@@ -215,12 +267,20 @@ db.users.find({ age: { $lte: 25 } });
 db.users.find({ name: { $in: ["Peter", "John"] } });
 ```
 
+<div align="center">
+<img src="./screenshots/ss10.png" alt="$in">
+</div>
+
 `$nin` - This is the opposite of $in and returns all documents with values not in the array.
 
 ```js
 // Get all users with a name other than Peter or John
 db.users.find({ name: { $nin: ["Peter", "John"] } });
 ```
+
+<div align="center">
+<img src="./screenshots/ss9.png" alt="$nin">
+</div>
 
 `$and` - This checks that all conditions in the array are true. It is not of much use, since passing multiple key value pairs to the same filter object by default does an and operation.
 
@@ -244,6 +304,10 @@ db.users.find({ $or: [{ name: "John" }, { age: 36 }] });
 db.users.find({ $name: { $not: { $eq: "John" } } });
 ```
 
+<div align="center">
+<img src="./screenshots/ss34.png" alt="$not">
+</div>
+
 `$nor` - Matches any value that matches none of the specified filters.
 
 ```js
@@ -260,6 +324,14 @@ db.users.find({ $name: { $exists: true } });
 // Get all users without a name field
 db.users.find({ $name: { $exists: false } });
 ```
+
+<div align="center">
+<img src="./screenshots/ss6.png" alt="$exits">
+</div>
+
+<div align="center">
+<img src="./screenshots/ss7.png" alt="$exits">
+</div>
 
 `$regex` - Matches any value that matches a specified regular expression.
 
@@ -278,7 +350,7 @@ db.users.find({ $name: { $exists: false } });
 `$all` - Matches any value that is an array and contains all elements specified in the array.
 
 ```js
-{ name: { $all: ["Peter", "John"] } }
+{ name: {	$all: ["Peter", "John"] }}
 ```
 
 `$size` - Matches any value that is an array and contains the specified number of elements.
@@ -304,6 +376,10 @@ db.user.find({ age: $elemMatch: { $gt: 09, $lte: 18} });
 db.users.find({ $expr: { $gt: ["$balance", "$debt"] } });
 ```
 
+<div align="center">
+<img src="./screenshots/ss33.png" alt="$expr">
+</div>
+
 ### Complex Update Object
 
 In MongoDB we can pass a lot of information to the update function that isn't just field values.
@@ -315,12 +391,20 @@ In MongoDB we can pass a lot of information to the update function that isn't ju
 db.users.updateOne({ age: 26 }, { $set: { name: "John" } });
 ```
 
+<div align="center">
+<img src="./screenshots/ss29.png" alt="$set">
+</div>
+
 `$inc` - We can make use of the $inc option to add or subtract number to the given field.
 
 ```js
 // Update the first user with an age 26 by subtracting 2 from its age
 db.users.updateOne({ age: 26 }, { $inc: { age: -2 } });
 ```
+
+<div align="center">
+<img src="./screenshots/ss32.png" alt="$inc">
+</div>
 
 `$rename` - This will rename a field to a new name.
 
@@ -336,6 +420,10 @@ db.users.updateMany({}, { $rename: { age: "years" } });
 db.users.updateOne({ age: 26 }, { $unset: { age: "" } });
 ```
 
+<div align="center">
+<img src="./screenshots/ss30.png" alt="$unset">
+</div>
+
 `$push` - This lets we add a value to an array field.
 
 ```js
@@ -343,12 +431,20 @@ db.users.updateOne({ age: 26 }, { $unset: { age: "" } });
 db.users.updateMany({}, { $push: { friends: "Peter" } });
 ```
 
+<div align="center">
+<img src="./screenshots/ss27.png" alt="$pull">
+</div>
+
 `$pull` - This is the opposite of `$push` and removes a value from an array field.
 
 ```js
 // Remove Peter from the friends array for all users
 db.users.updateMany({}, { $pull: { friends: "Peter" } });
 ```
+
+<div align="center">
+<img src="./screenshots/ss31.png" alt="$pull">
+</div>
 
 ### Read Modifiers
 
@@ -361,6 +457,14 @@ These methods can be passed end of read operation and will modify how the result
 db.users.find().sort({ name: 1, age: -1 });
 ```
 
+<div align="center">
+<img src="./screenshots/ss19.png" alt="$sort">
+</div>
+
+<div align="center">
+<img src="./screenshots/ss20.png" alt="$sort">
+</div>
+
 `$limit` - This will limit the number of results returned.
 
 ```js
@@ -368,12 +472,20 @@ db.users.find().sort({ name: 1, age: -1 });
 db.users.find().limit(2);
 ```
 
+<div align="center">
+<img src="./screenshots/ss21.png" alt="$limit">
+</div>
+
 `$skip` - This will skip the first n results. This is useful in combination with limit to do pagination.
 
 ```js
 // Get all users except the first 4
 db.users.find().skip(4);
 ```
+
+<div align="center">
+<img src="./screenshots/ss18.png" alt="$skip">
+</div>
 
 ## Feedback
 
