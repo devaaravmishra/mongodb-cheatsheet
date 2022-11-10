@@ -1,4 +1,4 @@
-# mongodb-utils
+# mongodb-cheatsheet
 
 A mongodb documentation contains all the information we need to get started with mongodb.
 
